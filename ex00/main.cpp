@@ -6,7 +6,7 @@
 /*   By: sfiorini <sfiorini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 14:09:37 by sfiorini          #+#    #+#             */
-/*   Updated: 2025/08/08 17:46:48 by sfiorini         ###   ########.fr       */
+/*   Updated: 2025/08/08 17:55:00 by sfiorini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <string>
 #include <cstdlib>
 #include <fstream>
+#include <string>
 
 void	fill_data(std::ifstream& data_file, std::map<std::string, float>& data)
 {
@@ -92,6 +93,7 @@ std::string* getPreviusDay(std::string& str)
 	std::string year;
 	std::string month;
 	std::string days;
+	std::string final;
 
 	int i;
 	for (i = 0; i < static_cast<int>(str.find('-')); i++)
@@ -124,8 +126,21 @@ std::string* getPreviusDay(std::string& str)
 			else
 				days = 29;
 		}
-			
 	}
+	year.clear();
+	month.clear();
+	days.clear();
+	// year = std::itoa()
+	// month = std::itoa()
+	// days = std::itoa()
+	for (int i = 0; i < year.size(); i++)
+		final.push_back(year[i]);
+	final.push_back('-');
+	for (int i = 0; i < month.size(); i++)
+		final.push_back(month[i]);
+	final.push_back('-');
+	for (int i = 0; i < days.size(); i++)
+		final.push_back(days[i]);
 }
 
 int	main(int argc, char** argv)
