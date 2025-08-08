@@ -6,7 +6,7 @@
 /*   By: sfiorini <sfiorini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 14:09:37 by sfiorini          #+#    #+#             */
-/*   Updated: 2025/08/08 16:09:38 by sfiorini         ###   ########.fr       */
+/*   Updated: 2025/08/08 16:16:15 by sfiorini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,17 +112,16 @@ int	main(int argc, char** argv)
 				else
 				{
 					value_str = getInputValue(input, i);
-					std::cout << "input value: " << *value_str << std::endl;
+					if (data[*data_str])
+						std::cout << *data_str << " => " << *value_str << " = " << std::atof((*value_str).c_str()) *  data[*data_str] << std::endl;
+						
 					delete value_str;
 				}
 				delete data_str;
 			}
 		}
 		catch(const std::exception& e) { std::cerr << e.what() << std::endl; return (-1);}
-		// for (int i = 0; i < input.size(); i++)
-		// {
-		// 	if (BitCoinExchange::checkValidity(input[i]))
-		// }
+
 	}
 	else
 		std::cout << "invalid number of arguments" << std::endl;
