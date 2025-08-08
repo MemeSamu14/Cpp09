@@ -6,7 +6,7 @@
 /*   By: sfiorini <sfiorini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 11:09:03 by sfiorini          #+#    #+#             */
-/*   Updated: 2025/08/07 18:38:19 by sfiorini         ###   ########.fr       */
+/*   Updated: 2025/08/08 15:16:59 by sfiorini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <cstdlib>
 
 class BitCoinExchange
 {
@@ -31,6 +32,7 @@ class BitCoinExchange
 		static void	checkFormatDateValue();
 		static void	checkValue(); // positive integers beetween 0 and 100
 		static bool checkValidity(const std::vector<std::string> &a);
+		static bool checkData(const std::string &str);
 		~BitCoinExchange();
 };
 
