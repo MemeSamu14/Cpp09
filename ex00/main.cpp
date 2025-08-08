@@ -6,7 +6,7 @@
 /*   By: sfiorini <sfiorini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 14:09:37 by sfiorini          #+#    #+#             */
-/*   Updated: 2025/08/08 16:16:15 by sfiorini         ###   ########.fr       */
+/*   Updated: 2025/08/08 17:46:48 by sfiorini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,14 @@ bool	correct_opening(std::ifstream& data_file, std::ifstream& input_file, char *
 	data_file.open("data.csv");
 	if(!data_file)
 	{
-		std::cout << "error opening data file" << std::endl;
+		std::cout << "Error: could not open file." << std::endl;
 		return (false);
 	}
 
 	input_file.open(argv);
 	if(!input_file)
 	{
-		std::cout << "error opening input file" << std::endl;
+		std::cout << "Error: could not open file." << std::endl;
 		return (false);
 	}
 	return (true);
@@ -87,6 +87,47 @@ std::string*	getInputValue(std::vector<std::string>& input, int index)
 	return (str);
 }
 
+std::string* getPreviusDay(std::string& str)
+{
+	std::string year;
+	std::string month;
+	std::string days;
+
+	int i;
+	for (i = 0; i < static_cast<int>(str.find('-')); i++)
+		year.push_back(str[i]);
+	for (i++; i < static_cast<int>(str.find('-',  i + 1)); i++)
+		month.push_back(str[i]);
+	for (i++; i < static_cast<int>(str.size()); i++)
+		days.push_back(str[i]);
+	int	year_int = std::atoi(year.c_str());
+	int	month_int = std::atoi(month.c_str());
+	int	days_int = std::atoi(days.c_str());
+
+	days_int--;
+	if (days_int == 0)
+	{
+		month_int--;
+		if (month_int == 0)
+		{
+			year_int--;
+			month_int = 12;
+		}
+		if (month_int == 1 || month_int == 3 || month_int == 5 || month_int == 7 || month_int == 8 || month_int == 10 || month_int == 12)
+			days_int = 31;
+		else if (month_int != 2)
+			days_int = 30;
+		else
+		{
+			if ((std::atoi(year.c_str()) % 4) != 0)
+				days = 28;
+			else
+				days = 29;
+		}
+			
+	}
+}
+
 int	main(int argc, char** argv)
 {
 	if (argc == 2)
@@ -112,9 +153,20 @@ int	main(int argc, char** argv)
 				else
 				{
 					value_str = getInputValue(input, i);
-					if (data[*data_str])
+					if (std::atof((*value_str).c_str()) < 0)
+						std::cout << "Error: not a positive number." << std::endl;
+					else if (data[*data_str])
 						std::cout << *data_str << " => " << *value_str << " = " << std::atof((*value_str).c_str()) *  data[*data_str] << std::endl;
+					else
+					{
 						
+						while (data[*data_str] == 0)
+						{
+							delete data_str;
+							data_str = getPreviusDay(data_str);
+						}
+						
+					}
 					delete value_str;
 				}
 				delete data_str;
