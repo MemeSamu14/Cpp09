@@ -6,7 +6,7 @@
 /*   By: sfiorini <sfiorini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 14:09:37 by sfiorini          #+#    #+#             */
-/*   Updated: 2025/08/09 12:28:11 by sfiorini         ###   ########.fr       */
+/*   Updated: 2025/08/09 14:08:07 by sfiorini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,10 +149,18 @@ std::string* getPreviusDay(std::string& str)
 		(*final).push_back(year1[i]);
 	(*final).push_back('-');
 	for (int i = 0; i < static_cast<int>(month1.size()); i++)
+	{
+		if (static_cast<int>(month1.size()) == 1)
+			(*final).push_back('0');
 		(*final).push_back(month1[i]);
+	}
 	(*final).push_back('-');
 	for (int i = 0; i < static_cast<int>(days1.size()); i++)
+	{
+		if (static_cast<int>(days1.size()) == 1)
+			(*final).push_back('0');
 		(*final).push_back(days1[i]);
+	}
 	return (final);
 }
 
@@ -202,19 +210,9 @@ int	main(int argc, char** argv)
 								delete tmp1;
 							i++;
 						}
-						std::cout << *data_str << " =>" << *value_str << " = " << std::atof((*value_str).c_str()) * data[*tmp] << std::endl;
+						std::cout << *data_str << " =>" << *value_str << " = " << \
+						std::atof((*value_str).c_str()) * data[*tmp] << std::endl;
 						delete tmp;
-						// while (data[*data_str] == 0)
-						// {
-						// 	std::string tmp = *data_str;
-						// 	// delete data_str;
-						// 	data_str = getPreviusDay(*data_str);
-						// 	std::cout << *data_str << std::endl;
-						// }
-						// if (data[*data_str] == 0)
-						// 	std::cout << "AHHHHHHHHHHHHHH>" << std::endl;
-						// std::string	*cacca = getPreviusDay(*data_str);
-						
 					}
 					delete value_str;
 				}
