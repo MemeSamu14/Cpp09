@@ -6,7 +6,7 @@
 /*   By: sfiorini <sfiorini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 14:09:37 by sfiorini          #+#    #+#             */
-/*   Updated: 2025/08/09 14:14:50 by sfiorini         ###   ########.fr       */
+/*   Updated: 2025/08/09 14:36:42 by sfiorini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,7 @@ int	main(int argc, char** argv)
 					std::cout << *data_str << " =>" << *value_str << " = " << std::atof((*value_str).c_str()) * data[*data_str] << std::endl;
 				else
 				{
+					
 					std::string *tmp;
 					std::string ref = *data_str;
 					tmp = &ref;
@@ -202,6 +203,8 @@ int	main(int argc, char** argv)
 					int i = 0;
 					while (data[*tmp] == 0)
 					{
+						if (i == 4)
+							break ;
 						tmp1 = tmp;
 						tmp = getPreviusDay(*tmp1);
 						if (i != 0)
