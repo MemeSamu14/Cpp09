@@ -3,7 +3,7 @@ NAME = RPN
 CC = c++
 CFLAGS = -Wall -Werror -Wextra -g -std=c++98
 
-SRC = main.cpp
+SRC = main.cpp RPN.cpp
 
 all: $(NAME) 
 
