@@ -6,7 +6,7 @@
 /*   By: sfiorini <sfiorini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 14:09:37 by sfiorini          #+#    #+#             */
-/*   Updated: 2025/08/08 17:55:00 by sfiorini         ###   ########.fr       */
+/*   Updated: 2025/08/09 12:28:11 by sfiorini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <cstdlib>
 #include <fstream>
 #include <string>
+#include <iostream>
 
 void	fill_data(std::ifstream& data_file, std::map<std::string, float>& data)
 {
@@ -93,7 +94,7 @@ std::string* getPreviusDay(std::string& str)
 	std::string year;
 	std::string month;
 	std::string days;
-	std::string final;
+	std::string* final = new std::string;
 
 	int i;
 	for (i = 0; i < static_cast<int>(str.find('-')); i++)
@@ -106,6 +107,9 @@ std::string* getPreviusDay(std::string& str)
 	int	month_int = std::atoi(month.c_str());
 	int	days_int = std::atoi(days.c_str());
 
+	// std::cout << year_int << std::endl;
+	// std::cout << month_int << std::endl;
+	// std::cout << days_int << std::endl;
 	days_int--;
 	if (days_int == 0)
 	{
@@ -130,17 +134,26 @@ std::string* getPreviusDay(std::string& str)
 	year.clear();
 	month.clear();
 	days.clear();
-	// year = std::itoa()
-	// month = std::itoa()
-	// days = std::itoa()
-	for (int i = 0; i < year.size(); i++)
-		final.push_back(year[i]);
-	final.push_back('-');
-	for (int i = 0; i < month.size(); i++)
-		final.push_back(month[i]);
-	final.push_back('-');
-	for (int i = 0; i < days.size(); i++)
-		final.push_back(days[i]);
+
+    char buffer[10];
+    char buffer1[10];
+    char buffer2[10];
+	sprintf(buffer, "%d", year_int);
+	std::string year1(buffer);
+	sprintf(buffer1, "%d", month_int);
+	std::string month1(buffer1);
+	sprintf(buffer2, "%d", days_int);
+	std::string days1(buffer2);
+	
+	for (int i = 0; i < static_cast<int>(year1.size()); i++)
+		(*final).push_back(year1[i]);
+	(*final).push_back('-');
+	for (int i = 0; i < static_cast<int>(month1.size()); i++)
+		(*final).push_back(month1[i]);
+	(*final).push_back('-');
+	for (int i = 0; i < static_cast<int>(days1.size()); i++)
+		(*final).push_back(days1[i]);
+	return (final);
 }
 
 int	main(int argc, char** argv)
@@ -170,16 +183,37 @@ int	main(int argc, char** argv)
 					value_str = getInputValue(input, i);
 					if (std::atof((*value_str).c_str()) < 0)
 						std::cout << "Error: not a positive number." << std::endl;
+					else if (std::atof((*value_str).c_str()) >= 2147483648)
+						std::cout << "Error: too large a number." << std::endl;
 					else if (data[*data_str])
-						std::cout << *data_str << " => " << *value_str << " = " << std::atof((*value_str).c_str()) *  data[*data_str] << std::endl;
+						std::cout << *data_str << " =>" << *value_str << " = " << std::atof((*value_str).c_str()) * data[*data_str] << std::endl;
 					else
 					{
-						
-						while (data[*data_str] == 0)
+						std::string *tmp;
+						std::string ref = *data_str;
+						tmp = &ref;
+						std::string *tmp1;
+						int i = 0;
+						while (data[*tmp] == 0)
 						{
-							delete data_str;
-							data_str = getPreviusDay(data_str);
+							tmp1 = tmp;
+							tmp = getPreviusDay(*tmp1);
+							if (i != 0)
+								delete tmp1;
+							i++;
 						}
+						std::cout << *data_str << " =>" << *value_str << " = " << std::atof((*value_str).c_str()) * data[*tmp] << std::endl;
+						delete tmp;
+						// while (data[*data_str] == 0)
+						// {
+						// 	std::string tmp = *data_str;
+						// 	// delete data_str;
+						// 	data_str = getPreviusDay(*data_str);
+						// 	std::cout << *data_str << std::endl;
+						// }
+						// if (data[*data_str] == 0)
+						// 	std::cout << "AHHHHHHHHHHHHHH>" << std::endl;
+						// std::string	*cacca = getPreviusDay(*data_str);
 						
 					}
 					delete value_str;
