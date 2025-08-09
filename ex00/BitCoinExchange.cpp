@@ -6,21 +6,11 @@
 /*   By: sfiorini <sfiorini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 11:09:03 by sfiorini          #+#    #+#             */
-/*   Updated: 2025/08/08 16:00:54 by sfiorini         ###   ########.fr       */
+/*   Updated: 2025/08/09 14:13:08 by sfiorini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitCoinExchange.hpp"
-
-// template <typename T>
-// BitcoinExchange<T>::BitcoinExchange(const T& bit)
-// {
-// 	this->
-// };
-
-// template <typename T>
-// BitcoinExchange<T>::~BitcoinExchange(){};
-
 
 bool BitCoinExchange::checkData(const std::string &str)
 {

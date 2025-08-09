@@ -6,7 +6,7 @@
 /*   By: sfiorini <sfiorini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 14:09:37 by sfiorini          #+#    #+#             */
-/*   Updated: 2025/08/09 14:12:29 by sfiorini         ###   ########.fr       */
+/*   Updated: 2025/08/09 14:14:50 by sfiorini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,50 +177,45 @@ int	main(int argc, char** argv)
 			return (-1);
 		fill_data(data_file, data);
 		fill_input(input, input_file);
-		try
+		std::string	*data_str;
+		std::string	*value_str;
+		for (int i = 0; i < static_cast<int>(input.size()); i++)
 		{
-			std::string	*data_str;
-			std::string	*value_str;
-			for (int i = 0; i < static_cast<int>(input.size()); i++)
+			data_str = getInputData(input, i);
+			if (BitCoinExchange::checkData(*data_str) == false)
+				std::cout << "Invalid Data Format" << std::endl;
+			else
 			{
-				data_str = getInputData(input, i);
-				if (BitCoinExchange::checkData(*data_str) == false)
-					std::cout << "Invalid Data Format" << std::endl;
+				value_str = getInputValue(input, i);
+				if (std::atof((*value_str).c_str()) < 0)
+					std::cout << "Error: not a positive number." << std::endl;
+				else if (std::atof((*value_str).c_str()) > 100)
+					std::cout << "Error: too large a number." << std::endl;
+				else if (data[*data_str])
+					std::cout << *data_str << " =>" << *value_str << " = " << std::atof((*value_str).c_str()) * data[*data_str] << std::endl;
 				else
 				{
-					value_str = getInputValue(input, i);
-					if (std::atof((*value_str).c_str()) < 0)
-						std::cout << "Error: not a positive number." << std::endl;
-					else if (std::atof((*value_str).c_str()) > 100)
-						std::cout << "Error: too large a number." << std::endl;
-					else if (data[*data_str])
-						std::cout << *data_str << " =>" << *value_str << " = " << std::atof((*value_str).c_str()) * data[*data_str] << std::endl;
-					else
+					std::string *tmp;
+					std::string ref = *data_str;
+					tmp = &ref;
+					std::string *tmp1;
+					int i = 0;
+					while (data[*tmp] == 0)
 					{
-						std::string *tmp;
-						std::string ref = *data_str;
-						tmp = &ref;
-						std::string *tmp1;
-						int i = 0;
-						while (data[*tmp] == 0)
-						{
-							tmp1 = tmp;
-							tmp = getPreviusDay(*tmp1);
-							if (i != 0)
-								delete tmp1;
-							i++;
-						}
-						std::cout << *data_str << " =>" << *value_str << " = " << \
-						std::atof((*value_str).c_str()) * data[*tmp] << std::endl;
-						delete tmp;
+						tmp1 = tmp;
+						tmp = getPreviusDay(*tmp1);
+						if (i != 0)
+							delete tmp1;
+						i++;
 					}
-					delete value_str;
+					std::cout << *data_str << " =>" << *value_str << " = " << \
+					std::atof((*value_str).c_str()) * data[*tmp] << std::endl;
+					delete tmp;
 				}
-				delete data_str;
+				delete value_str;
 			}
+			delete data_str;
 		}
-		catch(const std::exception& e) { std::cerr << e.what() << std::endl; return (-1);}
-
 	}
 	else
 		std::cout << "invalid number of arguments" << std::endl;
