@@ -6,7 +6,7 @@
 /*   By: sfiorini <sfiorini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 14:09:37 by sfiorini          #+#    #+#             */
-/*   Updated: 2025/08/09 14:08:07 by sfiorini         ###   ########.fr       */
+/*   Updated: 2025/08/09 14:12:29 by sfiorini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,7 @@ int	main(int argc, char** argv)
 					value_str = getInputValue(input, i);
 					if (std::atof((*value_str).c_str()) < 0)
 						std::cout << "Error: not a positive number." << std::endl;
-					else if (std::atof((*value_str).c_str()) >= 2147483648)
+					else if (std::atof((*value_str).c_str()) > 100)
 						std::cout << "Error: too large a number." << std::endl;
 					else if (data[*data_str])
 						std::cout << *data_str << " =>" << *value_str << " = " << std::atof((*value_str).c_str()) * data[*data_str] << std::endl;
