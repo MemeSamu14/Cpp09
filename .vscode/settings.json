@@ -49,6 +49,12 @@
 		"typeinfo": "cpp",
 		"map": "cpp",
 		"stack": "cpp",
-		"cstring": "cpp"
+		"cstring": "cpp",
+		"list": "cpp",
+		"ctime": "cpp",
+		"chrono": "cpp",
+		"ratio": "cpp",
+		"sstream": "cpp",
+		"iomanip": "cpp"
 	}
 }

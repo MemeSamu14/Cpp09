@@ -6,7 +6,7 @@
 /*   By: sfiorini <sfiorini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 15:08:27 by sfiorini          #+#    #+#             */
-/*   Updated: 2025/08/10 10:53:39 by sfiorini         ###   ########.fr       */
+/*   Updated: 2025/08/10 10:55:06 by sfiorini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,7 @@ int		RPN::calculate(const std::string &str)
 			if (str[i] != ' ')
 			{
 				if (stack.size() < 2)
-				{
 					throw	RPN::ErrorNotation();
-				}
 				if (times > 1)
 				{
 					first = this->stack.top();
