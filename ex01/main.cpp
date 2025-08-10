@@ -6,7 +6,7 @@
 /*   By: sfiorini <sfiorini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 14:40:53 by sfiorini          #+#    #+#             */
-/*   Updated: 2025/08/09 17:40:03 by sfiorini         ###   ########.fr       */
+/*   Updated: 2025/08/10 10:53:13 by sfiorini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,11 @@ int	main(int argc, char **argv)
 		if (errorHandling(newStr) == false)
 			return (std::cout << "Error" << std::endl, -1);
 		RPN culo;
-		std::cout << culo.calculate(newStr) << std::endl;
+		try
+		{ std::cout << culo.calculate(newStr) << std::endl; }
+		catch(const RPN::ErrorNotation& e)
+		{ std::cerr << e.what() << '\n'; }
+		
 	}
 	return (0);
 }
