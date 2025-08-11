@@ -6,7 +6,7 @@
 /*   By: sfiorini <sfiorini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 14:09:37 by sfiorini          #+#    #+#             */
-/*   Updated: 2025/08/09 14:36:42 by sfiorini         ###   ########.fr       */
+/*   Updated: 2025/08/11 11:06:04 by sfiorini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,38 +55,6 @@ bool	correct_opening(std::ifstream& data_file, std::ifstream& input_file, char *
 		return (false);
 	}
 	return (true);
-}
-
-void	fill_input(std::vector<std::string>& input, std::ifstream& input_file)
-{
-	std::string	str;
-	while (std::getline(input_file, str))
-	{
-		if (str != "date | value")
-			input.push_back(str);
-	}
-}
-
-std::string*	getInputData(std::vector<std::string>& input, int index)
-{
-	std::string* str = new std::string;
-	for (int j = 0; j < static_cast<int>(input[index].find('|')); j++)
-	{
-		if (input[index][j] != ' ')
-			(*str).push_back(input[index][j]);
-	}
-	return (str);
-}
-
-std::string*	getInputValue(std::vector<std::string>& input, int index)
-{
-	std::string* str = new std::string;
-	int start = static_cast<int>(input[index].find('|') + 1);
-	for (int j = start; j < static_cast<int>(input[index].size()); j++)
-	{
-		(*str).push_back(input[index][j]);
-	}
-	return (str);
 }
 
 std::string* getPreviusDay(std::string& str)
@@ -176,48 +144,54 @@ int	main(int argc, char** argv)
 		if (correct_opening(data_file, input_file, argv[1]) == false)
 			return (-1);
 		fill_data(data_file, data);
-		fill_input(input, input_file);
-		std::string	*data_str;
-		std::string	*value_str;
-		for (int i = 0; i < static_cast<int>(input.size()); i++)
+		std::string	str;
+		if (str != "date | value")
+			input.push_back(str);
 		{
-			data_str = getInputData(input, i);
-			if (BitCoinExchange::checkData(*data_str) == false)
-				std::cout << "Invalid Data Format" << std::endl;
-			else
+			std::string	data_str;
+			std::string	value_str;
+			while(std::getline(input_file, str))
 			{
-				value_str = getInputValue(input, i);
-				if (std::atof((*value_str).c_str()) < 0)
-					std::cout << "Error: not a positive number." << std::endl;
-				else if (std::atof((*value_str).c_str()) > 100)
-					std::cout << "Error: too large a number." << std::endl;
-				else if (data[*data_str])
-					std::cout << *data_str << " =>" << *value_str << " = " << std::atof((*value_str).c_str()) * data[*data_str] << std::endl;
+				for (int z = 0; z < static_cast<int>(str.find('|')); z++)
+					data_str.push_back(str[z]);
+				// data_str = 
+				if (BitCoinExchange::checkData(data_str) == false)
+					std::cout << "Invalid Data Format" << std::endl;
 				else
 				{
-					
-					std::string *tmp;
-					std::string ref = *data_str;
-					tmp = &ref;
-					std::string *tmp1;
-					int i = 0;
-					while (data[*tmp] == 0)
+					for (int z = data_str.size(); z < static_cast<int>(str.size()); z++)
+						value_str.push_back(str[z]);
+					if (std::atof(value_str.c_str()) < 0)
+						std::cout << "Error: not a positive number." << std::endl;
+					else if (std::atof(value_str.c_str()) > 100)
+						std::cout << "Error: too large a number." << std::endl;
+					else if (data[data_str])
+						std::cout << data_str << " =>" << value_str << " = " << std::atof(value_str.c_str()) * data[data_str] << std::endl;
+					else
 					{
-						if (i == 4)
-							break ;
-						tmp1 = tmp;
-						tmp = getPreviusDay(*tmp1);
-						if (i != 0)
-							delete tmp1;
-						i++;
+						std::string *tmp;
+						std::string ref = data_str;
+						tmp = &ref;
+						std::string *tmp1;
+						int i = 0;
+						while (data[*tmp] == 0)
+						{
+							if (i == 4)
+								break ;
+							tmp1 = tmp;
+							tmp = getPreviusDay(*tmp1);
+							if (i != 0)
+								delete tmp1;
+							i++;
+						}
+						std::cout << data_str << " =>" << value_str << " = " << \
+						std::atof((value_str).c_str()) * data[*tmp] << std::endl;
+						delete tmp;
 					}
-					std::cout << *data_str << " =>" << *value_str << " = " << \
-					std::atof((*value_str).c_str()) * data[*tmp] << std::endl;
-					delete tmp;
+					value_str.clear();
 				}
-				delete value_str;
+				data_str.clear();
 			}
-			delete data_str;
 		}
 	}
 	else
