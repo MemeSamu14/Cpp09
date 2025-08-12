@@ -13,6 +13,9 @@ $(UTILS):
 $(NAME): $(SRC)
 	$(CC) $(CFLAGS) $(SRC) -o $(NAME)
 
+home:
+	$(CC) $(SRC) -o $(NAME) 
+
 clean:
 	rm -f
 

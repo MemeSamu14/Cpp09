@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sfiorini <sfiorini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samuele <samuele@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 14:09:37 by sfiorini          #+#    #+#             */
-/*   Updated: 2025/08/11 11:06:04 by sfiorini         ###   ########.fr       */
+/*   Updated: 2025/08/12 13:15:20 by samuele          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,8 +159,8 @@ int	main(int argc, char** argv)
 					std::cout << "Invalid Data Format" << std::endl;
 				else
 				{
-					for (int z = data_str.size(); z < static_cast<int>(str.size()); z++)
-						value_str.push_back(str[z]);
+					for (int z = data_str.size() + 2; z < static_cast<int>(str.size()); z++)
+						value_str.push_back(str[z]);	
 					if (std::atof(value_str.c_str()) < 0)
 						std::cout << "Error: not a positive number." << std::endl;
 					else if (std::atof(value_str.c_str()) > 100)
