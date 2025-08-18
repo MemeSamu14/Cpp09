@@ -6,7 +6,7 @@
 /*   By: sfiorini <sfiorini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 10:57:30 by sfiorini          #+#    #+#             */
-/*   Updated: 2025/08/18 10:53:52 by sfiorini         ###   ########.fr       */
+/*   Updated: 2025/08/18 17:26:41 by sfiorini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	PmergeMe::setValues(const std::string &str)
 				}
 				else
 				{
-					std::cout << "str[i]: " << str[i] << std::endl;
 					std::string	num;
 					int z;
 					for (z = 0; z < j; z++)
@@ -69,24 +68,23 @@ void	PmergeMe::setValues(const std::string &str)
 	}
 }
 
-void	PmergeMe::sort(const std::string &str)
+void	PmergeMe::sort()
 {
-	std::cout << "Before: " << str << std::endl;
-	
-	int	left = 0;
-	int	right = this->dq.size() - 1;
-
+	std::cout << "Before: ";
+	for (int i = 0; i < static_cast<int>(this->vet.size()); i++)
+		std::cout << this->vet[i] << " ";
+	std::cout << std::endl;
 	struct timeval dqTimeStart;
 	struct timeval dqTimeEnd;
 	gettimeofday(&dqTimeStart, NULL);
-	dqMergeSort(left, right);
+	dqFordJhonsonSort();
 	gettimeofday(&dqTimeEnd, NULL);
 	double dqTime = static_cast<double>((dqTimeEnd.tv_sec - dqTimeStart.tv_sec) * 1000000LL + (dqTimeEnd.tv_usec - dqTimeStart.tv_usec)) / 1000000.0;
 
 	struct timeval vetTimeStart;
 	struct timeval vetTimeEnd;
 	gettimeofday(&vetTimeStart, NULL);
-	vetMergeSort(left, right);
+	vetFordJhonsonSort();
 	gettimeofday(&vetTimeEnd, NULL);
 	double vetTime = static_cast<double>((vetTimeEnd.tv_sec - vetTimeStart.tv_sec) * 1000000LL + (vetTimeEnd.tv_usec - vetTimeStart.tv_usec)) / 1000000.0;
 
@@ -98,118 +96,99 @@ void	PmergeMe::sort(const std::string &str)
 	std::cout << "Time to process a range of " << std::fixed << std::setprecision(10) << this->vet.size() << " elements with std::deque : "  << dqTime << " us" << std::endl;
 }
 
-void	PmergeMe::vetMergeSort(int left, int right)
-{
-	if (left >= right)
-		return;
 
-	int mid = left + (right - left) / 2;
-	vetMergeSort(left, mid);
-	vetMergeSort(mid + 1, right);
-	vetMerge(left, mid, right);
+void swap(int* a, int* b)
+{
+    int tmp = *a;
+    *a = *b;
+    *b = tmp;
 }
 
-void	PmergeMe::vetMerge(int left, int mid, int right)
+void	PmergeMe::vetFordJhonsonSort()
 {
-	int n1 = mid - left + 1;
-	int n2 = right - mid;
+	std::vector<int>	bigs;
+	std::vector<int>	lows;
 
-	std::vector<int> L(n1), R(n2);
-
-	for (int i = 0; i < n1; i++)
-		L[i] = this->vet[left + i];
-	for (int j = 0; j < n2; j++)
-		R[j] = this->vet[mid + 1 + j];
-
-	int i = 0, j = 0;
-	int k = left;
-
-	while (i < n1 && j < n2) 
+	for (int i = 0; i < static_cast<int>(this->vet.size() - 1); i += 2)
 	{
-		if (L[i] <= R[j]) 
+		if (this->vet[i] > this->vet[i + 1])
 		{
-			this->vet[k] = L[i];
-			i++;
+			bigs.push_back(this->vet[i]);
+			lows.push_back(this->vet[i + 1]);
 		}
 		else
 		{
-			this->vet[k] = R[j];
-			j++;
+			bigs.push_back(this->vet[i + 1]);
+			lows.push_back(this->vet[i]);
 		}
-		k++;
-	}
-	
-	while (i < n1)
-	{
-		this->vet[k] = L[i];
-		i++;
-		k++;
 	}
 
-	while (j < n2)
+	int	size = static_cast<int>(bigs.size());
+	for (int i = 0; i < size - 1; i++)
 	{
-		this->vet[k] = R[j];
-		j++;
-		k++;
-	}
-	
-}
-
-
-
-void	PmergeMe::dqMergeSort(int left, int right)
-{
-	if (left >= right)
-		return;
-
-	int mid = left + (right - left) / 2;
-	dqMergeSort(left, mid);
-	dqMergeSort(mid + 1, right);
-	dqMerge(left, mid, right);
-}
-
-void	PmergeMe::dqMerge(int left, int mid, int right)
-{
-	int n1 = mid - left + 1;
-	int n2 = right - mid;
-
-	std::deque<int> L(n1), R(n2);
-
-	for (int i = 0; i < n1; i++)
-		L[i] = this->dq[left + i];
-	for (int j = 0; j < n2; j++)
-		R[j] = this->dq[mid + 1 + j];
-
-	int i = 0, j = 0;
-	int k = left;
-
-	while (i < n1 && j < n2) 
-	{
-		if (L[i] <= R[j]) 
+		for (int j = 0; j < size - i - 1; j++)
 		{
-			this->dq[k] = L[i];
-			i++;
+			if (bigs[j] > bigs[j + 1])
+			{
+				std::swap(bigs[j], bigs[j + 1]);
+				std::swap(lows[j], lows[j + 1]);
+			}
+		}
+	}
+	bigs.insert(bigs.begin(), lows[0]);
+	int	i;
+	while (static_cast<int>(lows.size()) > 1)
+	{
+		i = static_cast<int>(bigs.size()) - 1;
+		while (i >= 0 && bigs[i] > lows[static_cast<int>(lows.size()) - 1])
+			i--;
+		bigs.insert(bigs.begin() + i + 1, lows[static_cast<int>(lows.size()) - 1]);
+		lows.pop_back();
+	}
+	this->vet = bigs;
+}
+
+
+void	PmergeMe::dqFordJhonsonSort()
+{
+	std::deque<int>	bigs;
+	std::deque<int>	lows;
+
+	for (int i = 0; i < static_cast<int>(this->dq.size() - 1); i += 2)
+	{
+		if (this->dq[i] > this->dq[i + 1])
+		{
+			bigs.push_back(this->dq[i]);
+			lows.push_back(this->dq[i + 1]);
 		}
 		else
 		{
-			this->dq[k] = R[j];
-			j++;
+			bigs.push_back(this->dq[i + 1]);
+			lows.push_back(this->dq[i]);
 		}
-		k++;
-	}
-	
-	while (i < n1)
-	{
-		this->dq[k] = L[i];
-		i++;
-		k++;
 	}
 
-	while (j < n2)
+	int	size = static_cast<int>(bigs.size());
+	for (int i = 0; i < size - 1; i++)
 	{
-		this->dq[k] = R[j];
-		j++;
-		k++;
+		for (int j = 0; j < size - i - 1; j++)
+		{
+			if (bigs[j] > bigs[j + 1])
+			{
+				std::swap(bigs[j], bigs[j + 1]);
+				std::swap(lows[j], lows[j + 1]);
+			}
+		}
 	}
-	
+	bigs.insert(bigs.begin(), lows[0]);
+	int	i;
+	while (static_cast<int>(lows.size()) > 1)
+	{
+		i = static_cast<int>(bigs.size()) - 1;
+		while (i >= 0 && bigs[i] > lows[static_cast<int>(lows.size()) - 1])
+			i--;
+		bigs.insert(bigs.begin() + i + 1, lows[static_cast<int>(lows.size()) - 1]);
+		lows.pop_back();
+	}
+	this->dq = bigs;
 }

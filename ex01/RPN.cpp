@@ -6,7 +6,7 @@
 /*   By: sfiorini <sfiorini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 15:08:27 by sfiorini          #+#    #+#             */
-/*   Updated: 2025/08/10 10:55:06 by sfiorini         ###   ########.fr       */
+/*   Updated: 2025/08/18 15:43:59 by sfiorini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,12 @@ int		RPN::calculate(const std::string &str)
 				else if (str[i] == '*')
 					result = multiplication(first, second);
 				else if (str[i] == '/')
-					result = division(first, second);
+				{
+					if (second != 0)
+						result = division(first, second);
+					else
+						result = 0;
+				}
 				stack.push(result);
 			}
 		}

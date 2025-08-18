@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samuele <samuele@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sfiorini <sfiorini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 14:09:37 by sfiorini          #+#    #+#             */
-/*   Updated: 2025/08/12 13:15:20 by samuele          ###   ########.fr       */
+/*   Updated: 2025/08/18 15:42:34 by sfiorini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,24 +137,21 @@ int	main(int argc, char** argv)
 	if (argc == 2)
 	{
 		std::map<std::string, float>	data;
-		std::vector<std::string>		input;
-
+	
 		std::ifstream	data_file;
 		std::ifstream	input_file;
 		if (correct_opening(data_file, input_file, argv[1]) == false)
 			return (-1);
 		fill_data(data_file, data);
 		std::string	str;
-		if (str != "date | value")
-			input.push_back(str);
+		std::string	data_str;
+		std::string	value_str;
+		while(std::getline(input_file, str))
 		{
-			std::string	data_str;
-			std::string	value_str;
-			while(std::getline(input_file, str))
+			if (str != "date | value")
 			{
 				for (int z = 0; z < static_cast<int>(str.find('|')); z++)
 					data_str.push_back(str[z]);
-				// data_str = 
 				if (BitCoinExchange::checkData(data_str) == false)
 					std::cout << "Invalid Data Format" << std::endl;
 				else

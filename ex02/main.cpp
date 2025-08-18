@@ -6,7 +6,7 @@
 /*   By: sfiorini <sfiorini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 10:57:02 by sfiorini          #+#    #+#             */
-/*   Updated: 2025/08/10 11:28:32 by sfiorini         ###   ########.fr       */
+/*   Updated: 2025/08/18 16:48:20 by sfiorini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int argc, char** argv)
 		catch(const PmergeMe::ErrorProgram& e)
 		{ std::cerr << e.what() << '\n'; }
 
-		a.sort(argv[1]);
+		a.sort();
 	}
 	return (0);
 }
