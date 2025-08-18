@@ -6,7 +6,7 @@
 /*   By: sfiorini <sfiorini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 10:57:30 by sfiorini          #+#    #+#             */
-/*   Updated: 2025/08/11 10:41:26 by sfiorini         ###   ########.fr       */
+/*   Updated: 2025/08/18 10:53:52 by sfiorini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,8 @@ void	PmergeMe::sort(const std::string &str)
 	for (int i = 0; i < static_cast<int>(this->vet.size()); i++)
 		std::cout << this->vet[i] << " ";
 	std::cout << std::endl;
-
-	std::cout << "Tempo trascorso in millisecondi: " << std::fixed << std::setprecision(10) << dqTime << std::endl;
-	std::cout << "Tempo trascorso in millisecondi: " << std::fixed << std::setprecision(10) << vetTime << std::endl;
-	
-
-	
+	std::cout << "Time to process a range of " << std::fixed << std::setprecision(10) << this->vet.size() << " elements with std::vector : " << vetTime << " us" << std::endl;
+	std::cout << "Time to process a range of " << std::fixed << std::setprecision(10) << this->vet.size() << " elements with std::deque : "  << dqTime << " us" << std::endl;
 }
 
 void	PmergeMe::vetMergeSort(int left, int right)

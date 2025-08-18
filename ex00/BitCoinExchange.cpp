@@ -6,7 +6,7 @@
 /*   By: sfiorini <sfiorini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 11:09:03 by sfiorini          #+#    #+#             */
-/*   Updated: 2025/08/11 10:56:27 by sfiorini         ###   ########.fr       */
+/*   Updated: 2025/08/18 10:42:50 by sfiorini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ bool BitCoinExchange::checkData(const std::string &str)
 		days.push_back(str[i]);
 	if (year.size() > 4)
 		return (false);
-	// std::cout << std::atoi(year.c_str()) << std::endl;
 	if (std::atoi(year.c_str()) < 2009 || std::atoi(year.c_str()) > 2022)
 		return (false);
 	if (std::atoi(year.c_str()) == 2009)
