@@ -6,7 +6,7 @@
 /*   By: sfiorini <sfiorini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 14:09:37 by sfiorini          #+#    #+#             */
-/*   Updated: 2025/08/18 15:42:34 by sfiorini         ###   ########.fr       */
+/*   Updated: 2025/08/19 17:34:00 by sfiorini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,6 @@ std::string* getPreviusDay(std::string& str)
 	int	month_int = std::atoi(month.c_str());
 	int	days_int = std::atoi(days.c_str());
 
-	// std::cout << year_int << std::endl;
-	// std::cout << month_int << std::endl;
-	// std::cout << days_int << std::endl;
 	days_int--;
 	if (days_int == 0)
 	{
@@ -160,7 +157,7 @@ int	main(int argc, char** argv)
 						value_str.push_back(str[z]);	
 					if (std::atof(value_str.c_str()) < 0)
 						std::cout << "Error: not a positive number." << std::endl;
-					else if (std::atof(value_str.c_str()) > 100)
+					else if (std::atof(value_str.c_str()) > 1000)
 						std::cout << "Error: too large a number." << std::endl;
 					else if (data[data_str])
 						std::cout << data_str << " =>" << value_str << " = " << std::atof(value_str.c_str()) * data[data_str] << std::endl;

@@ -6,7 +6,7 @@
 /*   By: sfiorini <sfiorini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 10:57:30 by sfiorini          #+#    #+#             */
-/*   Updated: 2025/08/18 17:26:41 by sfiorini         ###   ########.fr       */
+/*   Updated: 2025/08/19 17:41:46 by sfiorini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ void	PmergeMe::vetFordJhonsonSort()
 	std::vector<int>	bigs;
 	std::vector<int>	lows;
 
+		
 	for (int i = 0; i < static_cast<int>(this->vet.size() - 1); i += 2)
 	{
 		if (this->vet[i] > this->vet[i + 1])
@@ -144,6 +145,13 @@ void	PmergeMe::vetFordJhonsonSort()
 			i--;
 		bigs.insert(bigs.begin() + i + 1, lows[static_cast<int>(lows.size()) - 1]);
 		lows.pop_back();
+	}
+	if (static_cast<int>(this->vet.size()) % 2 == 1)
+	{
+		i = static_cast<int>(bigs.size()) - 1;
+		while (i >= 0 && bigs[i] > vet[static_cast<int>(this->vet.size()) - 1])
+			i--;
+		bigs.insert(bigs.begin() + i + 1, vet[static_cast<int>(this->vet.size()) - 1]);
 	}
 	this->vet = bigs;
 }
