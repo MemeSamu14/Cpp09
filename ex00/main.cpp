@@ -6,7 +6,7 @@
 /*   By: sfiorini <sfiorini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 14:09:37 by sfiorini          #+#    #+#             */
-/*   Updated: 2025/08/19 17:34:00 by sfiorini         ###   ########.fr       */
+/*   Updated: 2025/08/19 18:08:50 by sfiorini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,13 +163,16 @@ int	main(int argc, char** argv)
 						std::cout << data_str << " =>" << value_str << " = " << std::atof(value_str.c_str()) * data[data_str] << std::endl;
 					else
 					{
+						int flag = 0;
 						std::string *tmp;
+						data_str.erase(data_str.length() - 1);
 						std::string ref = data_str;
 						tmp = &ref;
 						std::string *tmp1;
 						int i = 0;
 						while (data[*tmp] == 0)
 						{
+							flag = 1;
 							if (i == 4)
 								break ;
 							tmp1 = tmp;
@@ -178,9 +181,10 @@ int	main(int argc, char** argv)
 								delete tmp1;
 							i++;
 						}
-						std::cout << data_str << " =>" << value_str << " = " << \
+						std::cout << data_str << " => " << value_str << " = " << \
 						std::atof((value_str).c_str()) * data[*tmp] << std::endl;
-						delete tmp;
+						if (flag == 1)
+							delete tmp;
 					}
 					value_str.clear();
 				}
