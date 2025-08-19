@@ -6,7 +6,7 @@
 /*   By: sfiorini <sfiorini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 10:57:30 by sfiorini          #+#    #+#             */
-/*   Updated: 2025/08/19 17:41:46 by sfiorini         ###   ########.fr       */
+/*   Updated: 2025/08/19 17:46:19 by sfiorini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ void	PmergeMe::vetFordJhonsonSort()
 	std::vector<int>	bigs;
 	std::vector<int>	lows;
 
-		
 	for (int i = 0; i < static_cast<int>(this->vet.size() - 1); i += 2)
 	{
 		if (this->vet[i] > this->vet[i + 1])
